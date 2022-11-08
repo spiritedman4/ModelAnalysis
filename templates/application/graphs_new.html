@@ -1,0 +1,115 @@
+{% extends 'application/new_upload_flow.html' %}
+
+{% block head %}
+ {{super()}}
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+	<style>
+		.wrapper{
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            margin-top:40px;
+			height:100%;
+            width:90%;
+			position:relative;
+			}
+
+    </style>
+
+{% endblock %}
+
+{% block content %}
+
+                                <div id="containered" class="container">
+									<div class="wrapper" id="wrapper">
+										{% for key, value in figs.items() %}
+											<div style="margin-top:20px;" id="graphs">
+												<h2 align='center'>{{key}}</h2>
+												<img src="data:image/png;base64, {{value}}" align='center'>
+											</div>
+										{% endfor %}
+										<div>
+											<button href="javascript:void(0)" class="btn-download">Download as PDF </button>
+										</div>
+										<button id="btn-print" class="btn btn-success btn-lg"
+				>Print & Generate PDF</button
+			>
+										<button id="btn-one" class="btn btn-success btn-lg">Download PDF (With Styles & Images / Same Page)</button>
+									</div>
+<!--									<button onclick="document.querySelector('#containered').contentWindow.print();" id="cmd">Generate as PDF</button>-->
+								</div>
+
+
+
+{% endblock %}
+
+{% block javascript %}
+
+<script src="{{url_for('static', filename='js/jspdf.umd.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/html2canvas.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/html2pdf.bundle.min.js')}}"></script>
+<!--<script src="{{url_for('static', filename='js/custom.js')}}"></script>-->
+
+
+<script>
+
+    const options = {
+      margin: 0.5,
+      filename: 'reports.pdf',
+      image: {
+        type: 'png',
+        quality: 500
+      },
+      html2canvas: {
+        scale: 1
+      },
+      jsPDF: {
+        unit: 'in',
+        format: 'letter',
+        orientation: 'portrait'
+      }
+    }
+
+    $('.btn-download').click(function(e){
+      e.preventDefault();
+      const element = document.getElementById('wrapper');
+      html2pdf().from(element).set(options).save();
+    });
+
+
+    </script>
+<script>
+	window.jsPDF = window.jspdf.jsPDF;
+	document.addEventListener('DOMContentLoaded', function () {
+	//////////////
+	//////////////
+	document.querySelector('#btn-print').addEventListener('click', function () {
+		// window.print();
+
+		let wspFrame = document.getElementById('wrapper').contentWindow;
+		wspFrame.focus();
+		wspFrame.print();
+	});
+	//////////////
+	//////////////
+
+	document.querySelector('#btn-one').addEventListener('click', function () {
+		html2canvas(document.querySelector('#wrapper')).then((canvas) => {
+			let base64image = canvas.toDataURL('image/png');
+			// console.log(base64image);
+			let pdf = new jsPDF('p', 'px', [1600, 1131]);
+			pdf.addImage(base64image, 'PNG', 0, 0, 500, 500);
+			pdf.save('webtylepress-two.pdf');
+		});
+	});
+
+});
+</script>
+
+{% endblock %}
+
+
+

@@ -1,0 +1,61 @@
+{% extends 'application/new_upload_flow.html' %}
+{% block head %}
+    {{super()}}
+        <link rel="stylesheet" type="text/css" href="{{url_for('.static',filename='dashboard/css/summary_page.css')}}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="wrapper">
+            <div class="table-info">
+                {% if missing_data_information %}
+                    <div>
+                        {% for key,value in missing_data_information.items() %}
+                            {% if 'missing_data_information_table' in missing_data_information %}
+                                <h6>Missing value information of {{filename}}</h6>
+                                <div>
+                                    {{value}}
+                                </div>
+                            {% else %}
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong>{{value}}</strong>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="line"></div>
+            <form method="post" action="{{url_for('models.data_summary',task_name=task_name)}}">
+            <div class="form-elements">
+                <div>
+                    <label class="label_style">Threshold value</label>
+                    <input class="input" type="number" min="0" max="1" step="0.01" name="threshold" placeholder="Enter the Value between 0 to 1" required>
+                </div>
+                <div>
+                    <label class="label_style">Select the axis</label>
+                    <select class="input" id="axis" name="axis" required>
+                      <option  value="0">Row</option>
+                      <option value="1">column</option>
+                    </select>
+                </div>
+                <div>
+                      <button class="button" type="submit">Submit</button>
+                </div>
+                <div>
+                    {% if msg %}
+                        {% for message in msg %}
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                              <strong>{{message}}</strong>
+                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
+

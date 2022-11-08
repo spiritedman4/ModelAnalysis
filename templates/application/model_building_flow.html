@@ -1,0 +1,98 @@
+{% extends 'application/new_upload_flow.html' %}
+
+{% block head %}
+ {{ super() }}
+    <link rel="stylesheet" type="text/css" href="{{url_for('.static',filename='dashboard/css/model_building_flow.css')}}">
+
+
+{% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+        <form class="wrapper" action="{{url_for('models.model_building',task_name=task_name)}}" method="post">
+            <div class="boxes">
+                  <div class="scrollable_model_building">
+                         <table>
+                             <tr>
+                                 <td colspan="4" class="caption">Select the Variables</td>
+                             </tr>
+                            <tr>
+                                <th ><input onclick='testcheck(1)' type="checkbox" id="indepvarmultiple" name="indepvarmultiple"></th>
+                                <th >Independent Variables</th>
+                                <th><input onclick='testcheck(2)' type="checkbox" id="depvarmultiple" name="depvarmultiple"></th>
+                                <th>Dependent Variables</th>
+                            </tr>
+                            {% for i in fieldnames %}
+                            <tr>
+                                <td><input type="checkbox" value="{{i}}" name="indepvar" id="indepvar"/></td>
+                                <td>{{i}}</td>
+                                <td><input type="checkbox" value="{{i}}" name="depvar" id="depvar"/></td>
+                                <td>{{i}}</td>
+
+                            </tr>
+                            {% endfor %}
+
+                        </table>
+                  </div>
+                  <div>
+                      <button type="submit">Submit</button>
+                  </div>
+            </div>
+            <div class="models_preview_warpper">
+                {% if df_all_models_preview_table %}
+                  <h5>Model Building Parameters</h5>
+                  <div class="all_models_preview">
+                      {{df_all_models_preview_table}}
+                  </div>
+                {% endif %}
+            </div>
+        </form>
+</div>
+
+
+{% endblock %}
+
+{% block javascript %}
+    {{ super() }}
+<script type="text/javascript">
+let btnClick1 = 0;
+let btnClick2 = 0;
+
+function testcheck(Btnnum){
+console.log(Btnnum);
+switch(Btnnum){
+case 1 : {
+checkTheBoxes("indepvar",btnClick1);
+btnClick1++;
+};break;
+
+case 2 : {
+checkTheBoxes("depvar",btnClick2);
+btnClick2++;
+};break;
+
+}
+
+function checkTheBoxes(getClassName,btnClicks){
+    const checkboxes=document.getElementsByName(getClassName);
+
+            for(var i=0;i<checkboxes.length;i++){
+            if(btnClicks % 2 == 0)  {
+            checkboxes[i].checked=true;
+            }
+            else{
+            checkboxes[i].checked=false;
+            }
+
+           }
+    }
+
+}
+
+</script>
+{% endblock %}
+
+
+

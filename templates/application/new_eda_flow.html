@@ -1,0 +1,165 @@
+{% extends 'application/new_upload_flow.html' %}
+
+{% block head %}
+ {{ super() }}
+        <style type="text/css">
+
+        table
+        {
+            border: 1px solid #ccc;
+            border-collapse: collapse;
+
+        }
+
+        table th
+        {
+            background-color: #F7F7F7;
+            color: #333;
+            font-weight: bold;
+        }
+
+        table th, table td
+        {
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .grid {
+              display: grid;
+              gap: 1rem;
+              grid-auto-flow: column;
+              grid-template-columns: repeat(auto-fit, minmax(min-content, 1fr));
+            }
+
+        .checkboxes {
+                    width: 70%;
+                    margin-left:300px;
+                    margin-top:30px;
+                    display:flex;
+                    flex-direction:column;
+                    align-items:center;
+            }
+        .boxes {
+            display:flex;
+            flex-direction:column;
+            justify-content:space-around;
+            align-items:center;
+        }
+
+        .caption {
+            padding:10px 100px 10px 120px;
+            font-weight:bold;
+        background-color:#1a237e;
+            color:white;
+            font-size:15px;
+            align-items:center;
+        }
+
+         .btn-grad {
+            background-image: linear-gradient(to right, #02AAB0 0%, #00CDAC  51%, #02AAB0  100%);
+            padding: 10px 40px;
+            text-align: center;
+            transition: 0.5s;
+            background-size: 200% auto;
+            color: white;
+            box-shadow: 0 0 20px #eee;
+            border-radius: 10px;
+            margin-bottom:20px;
+            width:25%;
+            height:40px;
+          }
+
+          .btn-grad:hover {
+            background-position: right center; /* change the direction of the change here */
+            color: #fff;
+            text-decoration: none;
+          }
+
+
+    </style>
+
+{% endblock %}
+
+{% block content %}
+
+
+<div class="checkboxes">
+    <form action="{{url_for('models.eda',task_name=task_name)}}" method="post">
+        <div class="boxes">
+              <div class="table table-hover" style="width:100%">
+                     <table cellspacing="0" rules="all" border="1" id="Table1" style="border-collapse: collapse;">
+                         <tr>
+                             <td colspan="4" class="caption">Select the Variables</td>
+                         </tr>
+                        <tr>
+                            <th ><input onclick='testcheck(1)' type="checkbox" id="indepvarmultiple" name="indepvarmultiple"></th>
+                            <th >Independent Variables</th>
+                            <th><input onclick='testcheck(2)' type="checkbox" id="depvarmultiple" name="depvarmultiple"></th>
+                            <th>Dependent Variables</th>
+                        </tr>
+                        {% for i in fieldnames %}
+                        <tr>
+                            <td><input type="checkbox" value="{{i}}" name="indepvar" id="indepvar"/></td>
+                            <td>{{i}}</td>
+                            <td><input type="checkbox" value="{{i}}" name="depvar" id="depvar"/></td>
+                            <td>{{i}}</td>
+
+                        </tr>
+                        {% endfor %}
+
+                    </table>
+              </div>
+              <div>
+                <button type="submit">Submit</button>
+              </div>
+        </div>
+
+
+    </form>
+
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+    {{ super() }}
+<script type="text/javascript">
+let btnClick1 = 0;
+let btnClick2 = 0;
+
+function testcheck(Btnnum){
+console.log(Btnnum);
+switch(Btnnum){
+case 1 : {
+checkTheBoxes("indepvar",btnClick1);
+btnClick1++;
+};break;
+
+case 2 : {
+checkTheBoxes("depvar",btnClick2);
+btnClick2++;
+};break;
+
+}
+
+function checkTheBoxes(getClassName,btnClicks){
+    const checkboxes=document.getElementsByName(getClassName);
+
+            for(var i=0;i<checkboxes.length;i++){
+            if(btnClicks % 2 == 0)  {
+            checkboxes[i].checked=true;
+            }
+            else{
+            checkboxes[i].checked=false;
+            }
+
+           }
+    }
+
+}
+
+</script>
+{% endblock %}
+
+
+

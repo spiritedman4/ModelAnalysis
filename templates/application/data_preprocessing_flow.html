@@ -1,0 +1,92 @@
+{% extends 'application/new_upload_flow.html' %}
+{% block head %}
+    {{super()}}
+    <link rel="stylesheet" type="text/css" href="{{url_for('.static',filename='dashboard/css/preprocessing_page.css')}}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <form class="wrapper" method="POST" action="{{url_for('models.datapreprocessing',task_name=task_name)}}">
+            {% if result_summary_stats is defined %}
+                <div class="summary_stats_table_wrapper">
+                    <h5>Descriptive Data Information</h5>
+                    <div class="summary_stats_table">
+                        {{result_summary_stats}}
+                    </div>
+                </div>
+            {% endif %}
+            {% if categorical_summary_stats is defined %}
+                {% for key,value in categorical_summary_stats.items() %}
+                    {% if 'data' in categorical_summary_stats %}
+                        <div class="summary_stats_table_wrapper">
+                            <h5>Categorical Data Information</h5>
+                            <div class="summary_stats_table">
+                                {{value}}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            {% if missing_columns is defined and missing_columns|length > 0 %}
+                <div class="process_options_wrapper">
+                    <div class="process_options">
+                         <table>
+                             <tr>
+                                 <td colspan="4" class="caption">Data Preprocessing</td>
+                             </tr>
+                            <tr>
+                                <th >Columns</th>
+                                <th >Select the Methods</th>
+
+                            </tr>
+                            {% for i in missing_columns %}
+                            <tr>
+                                <td>{{i}}</td>
+                                <td>
+                                    <input type="checkbox"  name="{{i}}" value="mean">
+                                    <label >Mean</label>
+                                    <input type="checkbox"  name="{{i}}" value="median">
+                                    <label >Median</label>
+                                    <input type="checkbox"  name="{{i}}" value="mode">
+                                    <label >Mode</label>
+                                </td>
+
+
+                            </tr>
+                            {% endfor %}
+
+                         </table>
+                    </div>
+                    <div>
+                        <button type="submit">Submit</button>
+                    </div>
+                </div>
+            {% endif %}
+            {% if alerts %}
+                <div class="alerts_wrapper">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {% for alert in alerts %}
+                            <strong>{{alert}}<br></strong>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+<script>
+    function selectOnlyThis(id){
+    var chks=document.getElementsByName("uploaded_csv_files");
+        for (var i=0; i<chks.length;i++) {
+        document.getElementById(i).checked=false;
+        }
+    document.getElementById(id).checked=true;
+    }
+
+    $('.alert').alert()
+</script>
+{% endblock %}
+

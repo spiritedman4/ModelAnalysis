@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('.static',filename='bootstrap/css/bootstrap.min.css')}}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('.static',filename='dashboard/css/task_page.css')}}">
+
+</head>
+<body>
+        <div class="tab_bar">
+            <div class="logo">
+                <label>Neptune Software Group</label>
+            </div>
+
+            <ul class="nav-links">
+                <li data-tab-target="#task_creator" class="active tab">Create Tasks</li>
+                <li data-tab-target="#task_reports" class="tab">Tasks Reports</li>
+                <li data-tab-target="#task_manager" class="tab">Tasks Manager</li>
+            </ul>
+        </div>
+        <div class="container">
+            <div class="tab-content">
+                <div id="task_creator" data-tab-content class="active">
+                    <form action="/task" method="post">
+                        <div class="jumbotron" id="jumbotron">
+                                <label>Create a task to proceed for Model Building</label>
+                            <div>
+                                <p class="input-container">
+                                    <input autocomplete="name" class="input-field" id="text" name="task_name" placeholder="Enter the task name" type="text" required>
+                                    <label for="text" class="input-label">Task Name</label>
+                                </p>
+                            </div>
+                            <div>
+                                <button style="width:150px;" type="submit">
+                                  <span class="button_top"> Create
+                                  </span>
+                                </button>
+                            </div>
+                            {% with messages=get_flashed_messages(with_categories=true) %}
+                                {%if messages %}
+                                    {% for category, message in messages %}
+                                        {% if category=="success"%}
+
+                                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                                <strong>{{message}}</strong>
+
+                                                    <a href="{{url_for('models.index',task_name=task_name)}}">Click Here</a>
+
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>
+                                        {% else %}
+                                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                <strong>{{message}}</strong>
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            {% endwith %}
+                        </div>
+                    </form>
+                </div>
+
+                <div id="task_reports" data-tab-content>
+                    <div class="scrollable">
+                        {% if metrics_data_list %}
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Task ID</th>
+                                    <th>Task Name</th>
+                                    <th>Task Created Time</th>
+                                    <th>Task Status</th>
+                                    <th>Model</th>
+                                    <th>Accuracy</th>
+                                    <th>Accuracy CV Score</th>
+                                    <th>Accuracy CV StdDev</th>
+                                    <th>Train Accuracy</th>
+                                    <th>Test Accuracy</th>
+                                    <th>Precision Score</th>
+                                    <th>Recall Score</th>
+                                    <th>F1 Score</th>
+                                    <th>Roc Auc Score</th>
+                                </tr>
+                            </thead>
+                            {% for row in metrics_data_list %}
+                                <tbody>
+                                    <tr>
+                                        <td>{{row.task_id}}</td>
+                                        <td>{{row.task_name}}</td>
+                                        <td>{{row.time_created}}</td>
+                                        <td>{{STATE[row.task_status]}}</td>
+                                        <td>{{row.model_name}}</td>
+                                        <td>{{row.accuracy}}</td>
+                                        <td>{{row.accuracy_cv_stddev}}</td>
+                                        <td>{{row.accuracy_cv_score}}</td>
+                                        <td>{{row.Train_Accuracy}}</td>
+                                        <td>{{row.Test_Accuracy}}</td>
+                                        <td>{{row.precision_score}}</td>
+                                        <td>{{row.recall_score}}</td>
+                                        <td>{{row.f1_score}}</td>
+                                        <td>{{row.roc_auc_score}}</td>
+                                    </tr>
+                                </tbody>
+                            {% endfor %}
+                        {% else %}
+                            <label>No data found!Please Create tasks</label>
+                        {% endif %}
+                        </table>
+                    </div>
+                </div>
+                <div id="task_manager" data-tab-content>
+                    <div class="scrollable">
+                        {% if tasks_list %}
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Task ID</th>
+                                    <th>Task Name</th>
+                                    <th>Task Created Time</th>
+                                    <th>Task Closed Time</th>
+                                    <th>Task Status</th>
+                                    <th>Process</th>
+                                </tr>
+                            </thead>
+                            {% for row in tasks_list %}
+                                <tbody>
+                                    <tr>
+                                        <td>{{row.task_id}}</td>
+                                        <td>{{row.task_name}}</td>
+                                        <td>{{row.time_created}}</td>
+                                        <td>{{row.time_closed}}</td>
+                                        <td>{{STATE[row.task_status]}}</td>
+                                        {% if STATE[row.task_status]== 'ACTIVE' %}
+                                            <form method="get" action="/{{row.task_name}}/upload">
+                                                <td><button>Open</button> </td>
+                                            </form>
+                                        {% else %}
+                                                <td>Closed</td>
+                                        {% endif %}
+                                    </tr>
+                                </tbody>
+                            {% endfor %}
+                        {% else %}
+                            <label>No data found!Please Create tasks</label>
+                        {% endif %}
+                        </table>
+
+
+
+                </div>
+
+            </div>
+        </div>
+
+<script src="static/bootstrap/js/bootstrap.min.js"> </script>
+<script src="static/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script>
+const tabs = document.querySelectorAll('[data-tab-target]')
+const tabContents = document.querySelectorAll('[data-tab-content]')
+
+        tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+        const target = document.querySelector(tab.dataset.tabTarget)
+        tabContents.forEach(tabContent => {
+        tabContent.classList.remove('active')
+        })
+        tabs.forEach(tab => {
+        tab.classList.remove('active')
+        })
+        tab.classList.add('active')
+        target.classList.add('active')
+        })
+        })
+</script>
+</body>
+</html>

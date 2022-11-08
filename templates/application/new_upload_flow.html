@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('.static',filename='bootstrap/css/bootstrap.min.css')}}">
+    <link rel= "stylesheet" href= "{{ url_for('.static',filename='dashboard/css/dashboard.css')}}" >
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/style-new.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('.static',filename='dashboard/css/upload_page.css')}}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css"
+      type="text/css"
+    />
+
+{% endblock %}
+
+</head>
+<body>
+    <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+      <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">Neptune Software Group</a>
+      <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-nav">
+        <div class="nav-item text-nowrap">
+          <a class="nav-link px-3" href="#"><button class="button-close">Close Task</button></a>
+        </div>
+      </div>
+    </header>
+
+    <div class="container-fluid">
+      <div class="row">
+
+
+          <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+          <div class="position-sticky pt-3 sidebar-sticky">
+            <ul class="nav flex-column">
+
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{{url_for('models.index',task_name=task_name)}}">
+                  <span data-feather="home" class="align-text-bottom"></span>
+                  Data Uploads
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="{{url_for('models.data_summary',task_name=task_name)}}">
+                  <span data-feather="file" class="align-text-bottom"></span>
+                  Data Summary
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{url_for('models.datapreprocessing',task_name=task_name)}}">
+                  <span data-feather="shopping-cart" class="align-text-bottom"></span>
+                  Data preprocessing
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{url_for('models.eda',task_name=task_name)}}">
+                  <span data-feather="users" class="align-text-bottom"></span>
+                  EDA
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{url_for('models.show_graphs',task_name=task_name)}}">
+                  <span data-feather="bar-chart-2" class="align-text-bottom"></span>
+                  Graphs
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{url_for('models.model_building',task_name=task_name)}}">
+                  <span data-feather="layers" class="align-text-bottom"></span>
+                  Model Building
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{url_for('models.prediction',task_name=task_name)}}">
+                  <span data-feather="shopping-cart" class="align-text-bottom"></span>
+                  Prediction
+                </a>
+              </li>
+                <li class="nav-item">
+                <a class="nav-link" href="{{url_for('models.create_task')}}">
+                  <span data-feather="shopping-cart" class="align-text-bottom"></span>
+                  Tasks
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </div>
+{% block content %}
+    <div class="container">
+        <div class="uploaders_container">
+            <div class="upload_container">
+                <div class="dropzone_form">
+                     <form method="POST" class="dropzone dz-clickable" id="dropper" enctype="multipart/form-data" action="{{url_for('models.index',task_name=task_name)}}"></form>
+                </div>
+
+                <div>
+                    <form method="GET" action="{{url_for('models.data_preview',task_name=task_name)}}">
+                        <button type="submit">Upload</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="line"></div>
+
+            <form method="POST" action="{{url_for('models.data_preview_1',task_name=task_name)}}">
+                <div class="uploaded_csv_container">
+                         <div class="scrollable">
+                             <table>
+                                 <thead>
+                                    <tr>
+                                        <th colspan="2">Select from the list of uploaded files</th>
+                                    </tr>
+                                 </thead>
+
+                                 <tbody>
+                                    {% for i in uploaded_csv_files %}
+                                    <tr>
+                                        <td><input type="checkbox" onclick="selectOnlyThis(this.id)" value="{{i}}" name="uploaded_csv_files" id="{{uploaded_csv_files.index(i)}}"/></td>
+                                        <td>{{i}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                 </tbody>
+
+                            </table>
+                         </div>
+
+
+                        <button type="submit">Upload </button>
+
+                </div>
+            </form>
+        </div>
+
+        <div class="data_preview">
+            {% if df_preview %}
+            <p>Data Preview of the uploaded csv file {{filename}}</p>
+            {% endif %}
+            {{df_preview}}
+        </div>
+    </div>
+
+{% endblock %}
+
+
+<script type="application/javascript">
+    Dropzone.options.dropper = {
+        paramName: 'file',
+        chunking: true,
+        forceChunking: true,
+        url: "{{url_for('models.index',task_name=task_name)}}",
+        maxFilesize: 10000, // megabytes
+        chunkSize: 1000000 // bytes
+        }
+
+</script>
+    <script type="text/javascript">
+
+    function selectOnlyThis(id){
+    var chks=document.getElementsByName("uploaded_csv_files");
+        for (var i=0; i<chks.length;i++) {
+        document.getElementById(i).checked=false;
+        }
+    document.getElementById(id).checked=true;
+    }
+
+
+</script>
+
+    {% block javascript %}
+
+    {% endblock %}
+
+
+<script src="static/bootstrap/js/bootstrap.min.js"> </script>
+<script src="static/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

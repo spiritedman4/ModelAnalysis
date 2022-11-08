@@ -1,0 +1,53 @@
+{% extends 'application/new_upload_flow.html' %}
+
+{% block head %}
+ {{ super() }}
+    <link rel="stylesheet" type="text/css" href="{{url_for('.static',filename='dashboard/css/prediction_page.css')}}">
+
+{% endblock %}
+
+{% block content %}
+      <div class="container">
+         <form class="wrapper" method="post" action="{{url_for('models.prediction',task_name=task_name)}}">
+             {% if indep_variables is defined and indep_variables|length > 0%}
+                <div class="prediction-elements">
+                    {% for i in indep_variables %}
+                        <div>
+                            <label style="display:inline-block;font-weight:bold;letter-spacing:1px;font-size:15px;">{{i}}</label>
+                            <input style="padding:8px;" type="number" step="0.1" name="{{i}}" placeholder="Enter the value">
+                        </div>
+                    {% endfor %}
+                        <div>
+                            <label style="font-weight:bold;letter-spacing:1px;font-size:15px;"> Algorithms</label>
+                            <select style="padding:7px 7px;font-size:15px;" name="algorithm">
+                                <option value="LogisticRegression">Logistic Regression</option>
+                                <option value="DecisionTree">Decision Tree</option>
+                                <option value="RandomForest">Random Forest</option>
+                            </select>
+                        </div>
+                        <div>
+                            <button style="display:block;" type="submit">Predict</button>
+                        </div>
+                </div>
+             {% endif %}
+             <div class="line"></div>
+             <div class="prediction_result">
+                 {% if prediction_result is defined %}
+                    <h4>Prediction Result</h4>
+                    <div class="card">
+                      <div class="card-body">
+                        {{prediction_result}}
+                      </div>
+                    </div>
+
+                 {% endif %}
+             </div>
+         </form>
+     </div>
+{% endblock %}
+
+
+{% block javascript %}
+{{ super() }}
+
+{% endblock %}

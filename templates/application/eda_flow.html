@@ -1,0 +1,127 @@
+{% extends 'application/data_upload.html' %}
+
+{% block head %}
+ {{ super() }}
+        <style type="text/css">
+        body
+        {
+            font-family: Arial;
+            font-size: 10pt;
+        }
+
+        table
+        {
+            border: 1px solid #ccc;
+            border-collapse: collapse;
+        }
+
+        table th
+        {
+            background-color: #F7F7F7;
+            color: #333;
+            font-weight: bold;
+        }
+
+        table th, table td
+        {
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+    </style>
+
+{% endblock %}
+
+{% block content %}
+
+
+<div class="col-d-flex">
+    <form action="{{url_for('models.eda',task_name=task_name)}}" method="post">
+      <div class="table-responsive col-md-6">
+         <div>
+             <label>Please select the Independent Variables</label>
+             <table cellspacing="0" rules="all" border="1" id="Table1" style="border-collapse: collapse;">
+            <tr>
+                <th style="width:100px;justify-content:center;"><input onclick='testcheck(1)' type="checkbox" id="indepvarmultiple" name="indepvarmultiple"></th>
+                <th style="width:140px">Independent Variables</th>
+            </tr>
+            {% for i in fieldnames %}
+            <tr>
+                <td><input type="checkbox" value="{{i}}" name="indepvar" id="indepvar"/></td>
+                <td>{{i}}</td>
+            </tr>
+            {% endfor %}
+
+            </table>
+         </div>
+      </div>
+      <div class="table-responsive col-md-6">
+         <div>
+             <label>Please select the dependent Variables</label>
+             <table cellspacing="0" rules="all" border="1" id="Table2" style="border-collapse: collapse;">
+            <tr>
+                <th style="width:100px;justify-content:center;"><input onclick='testcheck(2)' type="checkbox" id="depvarmultiple" name="depvarmultiple"></th>
+                <th style="width:140px">dependent Variables</th>
+            </tr>
+            {% for i in fieldnames %}
+            <tr>
+                <td><input type="checkbox" value="{{i}}" name="depvar" id="depvar"/></td>
+                <td>{{i}}</td>
+            </tr>
+            {% endfor %}
+
+            </table>
+         </div>
+      </div>
+
+        <div>
+                    <label class="form-check-label">
+                      <button type="submit">Submit</button>
+                    </label>
+        </div>
+      </form>
+</div>
+
+{% endblock %}
+
+{% block javascript %}
+    {{ super() }}
+<script type="text/javascript">
+let btnClick1 = 0;
+let btnClick2 = 0;
+
+function testcheck(Btnnum){
+console.log(Btnnum);
+switch(Btnnum){
+case 1 : {
+checkTheBoxes("indepvar",btnClick1);
+btnClick1++;
+};break;
+
+case 2 : {
+checkTheBoxes("depvar",btnClick2);
+btnClick2++;
+};break;
+
+}
+
+function checkTheBoxes(getClassName,btnClicks){
+    const checkboxes=document.getElementsByName(getClassName);
+
+            for(var i=0;i<checkboxes.length;i++){
+            if(btnClicks % 2 == 0)  {
+            checkboxes[i].checked=true;
+            }
+            else{
+            checkboxes[i].checked=false;
+            }
+
+           }
+    }
+
+}
+
+</script>
+{% endblock %}
+
+
+

@@ -1,0 +1,89 @@
+{% extends 'application/new_upload_flow.html' %}
+
+{% block head %}
+ {{super()}}
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+	<style>
+		.wrapper{
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            margin-top:40px;
+			height:100%;
+            width:90%;
+			position:relative;
+			}
+
+    </style>
+
+{% endblock %}
+
+{% block content %}
+
+                                <div id="containered" class="container">
+									<div style="display:none;" id="task" 7>{{task_name}}</div>
+									<div class="wrapper">
+										<div id="graphs">
+											{% for key, value in figs.items() %}
+												<div style="margin-top:20px;">
+													<h2 align='center'>{{key}}</h2>
+													<img src="data:image/png;base64, {{value}}" align='center'>
+												</div>
+											{% endfor %}
+										</div>
+										<div>
+											<button onclick="Convert_HTML_To_PDF()" class="btn-download">Download as PDF </button>
+										</div>
+									</div>
+<!--									<button onclick="document.querySelector('#containered').contentWindow.print();" id="cmd">Generate as PDF</button>-->
+								</div>
+
+
+
+{% endblock %}
+
+{% block javascript %}
+
+<script src="{{url_for('static', filename='js/jspdf.umd.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/html2canvas.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/html2pdf.bundle.min.js')}}"></script>
+<!--<script src="{{url_for('static', filename='js/custom.js')}}"></script>-->
+
+<script>
+	window.jsPDF = window.jspdf.jsPDF;
+
+// Convert HTML content to PDF
+function Convert_HTML_To_PDF() {
+    var doc = new jsPDF();
+
+    // Source HTMLElement or a string containing HTML.
+    var elementHTML = document.querySelector("#graphs");
+
+    doc.html(elementHTML, {
+        callback: function(doc) {
+            // Save the PDF
+            doc.save('reports.pdf');
+        },
+        margin: [10, 10, 10, 10],
+        autoPaging: 'text',
+        pagesplit: true,
+        x: 10,
+        y: 10,
+        width: 150, //target width in the PDF document
+        windowWidth: 675 //window width in CSS pixels
+    });
+}
+
+
+
+
+</script>
+
+
+{% endblock %}
+
+
+
