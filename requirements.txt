@@ -170,9 +170,6 @@ PyMySQL==1.0.2
 pyparsing==3.0.9
 pyphen==0.13.0
 pyppeteer==1.0.2
-pywinpty==2.0.5
-PyYAML==6.0
-pyzmq==23.2.0
 qrcode==7.3.1
 qtconsole==5.3.1
 QtPy==2.1.0
