@@ -171,7 +171,6 @@ pyparsing==3.0.9
 pyphen==0.13.0
 pyppeteer==1.0.2
 pyrsistent==0.18.1
-pyspark==3.3.0
 pywin32==304
 pywinpty==2.0.5
 PyYAML==6.0
