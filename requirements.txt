@@ -173,7 +173,6 @@ pyppeteer==1.0.2
 pyrsistent==0.18.1
 pyspark==3.3.0
 python-barcode==0.14.0
-python-dateutil==2.8.2
 pywin32==304
 pywinpty==2.0.5
 PyYAML==6.0
