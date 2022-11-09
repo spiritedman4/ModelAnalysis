@@ -34,7 +34,16 @@ db.init_app(app)
 app.register_blueprint(forms,url_prefix="")
 app.register_blueprint(models,url_prefix="")
 
-app.wsgi_app = WhiteNoise(app.wsgi_app, root="static/")
+app.wsgi_app = WhiteNoise(app.wsgi_app)
+my_static_folders = (
+    "static/bootstrap/css",
+    "static/dashboard/css",
+    "static/bootstrap/js",
+    "static/dashboard/js",
+    "static/js/",
+)
+for static in my_static_folders:
+    app.wsgi_app.add_files(static)
 
 
 """-----------------------------------------------------------------------------------"""
