@@ -9,7 +9,7 @@ WHITENOISE_MAX_AGE = 31536000 if not app.config["DEBUG"] else 0
 # configure WhiteNoise
 app.wsgi_app = WhiteNoise(
     app.wsgi_app,
-    root=os.path.join(os.path.dirname(__file__), "static"),
+    root=os.path.join(os.path.dirname(__file__), "staticfiles"),
     prefix="assets/",
     max_age=WHITENOISE_MAX_AGE,
 )
