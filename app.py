@@ -1,9 +1,9 @@
 import os.path
 
 from flask import Flask,Blueprint,render_template
-from project.flow_2 import models
-from project.edas import eda
-from project.forms import forms
+from flow_2 import models
+from edas import eda
+from forms import forms
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.types import String, Integer, Float, Boolean
 from sqlalchemy import Column, ForeignKey, Integer, String
@@ -15,7 +15,7 @@ import multiprocessing
 from multiprocessing import Process
 from pathlib import Path
 import threading
-# from project.upload import uploading
+
 
 app=Flask(__name__,static_folder = './project/static')
 app.config['SECRET_KEY']="youcantseeme"
