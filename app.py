@@ -2,7 +2,6 @@ import os.path
 
 from flask import Flask,Blueprint,render_template
 from flow_2 import models
-from edas import eda
 from forms import forms
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.types import String, Integer, Float, Boolean
@@ -36,8 +35,6 @@ db.init_app(app)
 
 app.register_blueprint(forms,url_prefix="")
 app.register_blueprint(models,url_prefix="")
-app.register_blueprint(eda,url_prefix="")
-# app.register_blueprint(uploading,url_prefix="")
 
 
 """-----------------------------------------------------------------------------------"""
