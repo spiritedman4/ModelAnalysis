@@ -36,11 +36,9 @@ app.register_blueprint(models,url_prefix="")
 
 app.wsgi_app = WhiteNoise(app.wsgi_app)
 my_static_folders = (
-    "static/bootstrap/css",
-    "static/dashboard/css",
-    "static/bootstrap/js",
-    "static/dashboard/js",
-    "static/js/",
+    "static/bootstrap/",
+    "static/dashboard/",
+    "static/",
 )
 for static in my_static_folders:
     app.wsgi_app.add_files(static)
