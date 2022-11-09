@@ -22,6 +22,15 @@ from queue import Queue
 
 # blueprint
 models = Blueprint("models", __name__, template_folder='/templates/application', static_folder='static')
+WHITENOISE_MAX_AGE = 31536000 if not app.config["DEBUG"] else 0
+
+    # configure WhiteNoise
+    app.wsgi_app = WhiteNoise(
+        app.wsgi_app,
+        root=os.path.join(os.path.dirname(__file__), "static"),
+        prefix="assets/",
+        max_age=WHITENOISE_MAX_AGE,
+    )
 logging.basicConfig(filename="applicationlognew.log", level=logging.INFO,
                     format='%(asctime)s - %(levelname)s - %(message)s')
 
