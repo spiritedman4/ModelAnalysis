@@ -1,0 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+table {
+font-family: 'Poppins','sans-seriff';
+width:100%;
+}
+
+td,th {
+border: 1px solid #ccc;
+padding:0.5rem;
+text-align:left;
+}
+
+th {
+background-color:#1a237e;
+color:white;
+font-size:15px;
+position:sticky;
+top:0;
+}
+
+tr:hover{
+background-color:#E7E9EB;
+}
+
+.scrollable {
+height:100%;
+overflow:auto;
+border-bottom: 1px solid #ddd;
+}
+	
+
+.line {
+height: 250px;
+border-left: 1px solid gray;
+}
+.bd-placeholder-img {
+font-size: 1.125rem;
+text-anchor: middle;
+-webkit-user-select: none;
+-moz-user-select: none;
+user-select: none;
+}
+
+@media (min-width: 768px) {
+.bd-placeholder-img-lg {
+font-size: 3.5rem;
+}
+}
+
+.b-example-divider {
+height: 3rem;
+background-color: rgba(0, 0, 0, .1);
+border: solid rgba(0, 0, 0, .15);
+border-width: 1px 0;
+box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+}
+
+.b-example-vr {
+flex-shrink: 0;
+width: 1.5rem;
+height: 100vh;
+}
+
+.bi {
+vertical-align: -.125em;
+fill: currentColor;
+}
+
+.nav-scroller {
+position: relative;
+z-index: 2;
+height: 2.75rem;
+overflow-y: hidden;
+}
+
+.nav-scroller .nav {
+display: flex;
+flex-wrap: nowrap;
+padding-bottom: 1rem;
+margin-top: -1px;
+overflow-x: auto;
+text-align: center;
+white-space: nowrap;
+-webkit-overflow-scrolling: touch;
+}
+
+.container {
+	margin-left:200px;
+	height:100%;
+	width:100%;
+	display: flex;
+	flex-direction:column;
+	align-items:center;
+	justify-content:space-evenly;
+}
+		
+.uploaders_container {
+width: 100%;
+display: flex;
+justify-content:space-evenly;
+align-items:center;
+
+}
+
+.upload_container {
+		margin-top:50px;
+		width: 50%;
+		display: flex;
+		justify-content:space-evenly;
+		flex-direction:column;
+		align-items:center;
+}
+p {
+font-size:20px;
+}
+.uploaded_csv_container {
+		height:300px;
+		display:flex;
+		flex-direction:column;
+		align-items:center;
+		justify-content:space-evenly;
+		margin-top:20px;
+
+}
+
+.dropzone_form{
+height:200px;
+width:80%;
+}
+
+.data_preview {
+	overflow:auto;
+	margin-top:20px;
+	width:90%;
+                }
+				
+
+
+
+/* From uiverse.io */
+button {
+  padding: 1em 2em;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  color: #000;
+  background-color: #fff;
+  border: none;
+  border-radius: 25px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+}
+
+button:hover {
+  background-color: #23c483;
+  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+  color: #fff;
+  transform: translateY(-7px);
+}
+
+button:active {
+  transform: translateY(-1px);
+}
+
+   .button-close{
+  padding: 1em 1.5em;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+  color: #000;
+  background-color: #fff;
+  border: none;
+  border-radius: 25px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+}
+
+.button-close:hover {
+  background-color: #E61C22;
+  box-shadow: 0px 15px 20px rgb(255,0,0,0.3);
+  color: #fff;
+  transform: translateY(-7px);
+}
+
+.button-close:active {
+  transform: translateY(-1px);
+}

@@ -1,0 +1,44 @@
+<div>
+                {% for key,value in categorical_summary_stats.items() %}
+                    {% if 'data'in categorical_summary_stats %}
+                        <h5>Categorical Data Information</h5>
+                        <div class="data2">
+                            {{value}}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+<form method="POST" action="{{url_for('models.datapreprocessing',task_name=task_name)}}">
+                    <div class="process_options">
+                         <table>
+                             <tr>
+                                 <td colspan="4" class="caption">Data Preprocessing</td>
+                             </tr>
+                            <tr>
+                                <th >Columns</th>
+                                <th >Select the Methods</th>
+
+                            </tr>
+                            {% for i in column_names %}
+                            <tr>
+                                <td>{{i}}</td>
+                                <td>
+                                    <input type="checkbox"  name="{{i}}" value="mean">
+                                    <label >Mean</label>
+                                    <input type="checkbox"  name="{{i}}" value="median">
+                                    <label >Median</label>
+                                    <input type="checkbox"  name="{{i}}" value="mode">
+                                    <label >Mode</label>
+                                </td>
+
+
+                            </tr>
+                            {% endfor %}
+
+                         </table>
+                    </div>
+                    <div>
+                        <button type="submit">Submit</button>
+                    </div>
+          </form>
