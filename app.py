@@ -8,7 +8,6 @@ from sqlalchemy.types import String, Integer, Float, Boolean
 from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.orm import declarative_base, relationship
 from sqlalchemy.orm import backref
-from flask_caching import Cache
 from datetime import datetime
 import multiprocessing
 from multiprocessing import Process
@@ -23,8 +22,6 @@ current_path=Path(__file__).parent.absolute()
 db_path=os.path.abspath(current_path/"project"/"databases")
 app.config["SQLALCHEMY_DATABASE_URI"]= 'sqlite:///'+os.path.join(db_path,'ModelAnalysis.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-app.config['CACHE_TYPE']= "SimpleCache"
-cache=Cache(app)
 db= SQLAlchemy(app)
 
 
