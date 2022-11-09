@@ -4,15 +4,6 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo
 from flask import Blueprint,flash,request,redirect,url_for,render_template
 from whitenoise import WhiteNoise
 
-WHITENOISE_MAX_AGE = 31536000 if not app.config["DEBUG"] else 0
-
-# configure WhiteNoise
-app.wsgi_app = WhiteNoise(
-    app.wsgi_app,
-    root=os.path.join(os.path.dirname(__file__), "staticfiles"),
-    prefix="assets/",
-    max_age=WHITENOISE_MAX_AGE,
-)
 
 forms= Blueprint("forms",__name__,static_folder="static", template_folder="templates")
 
