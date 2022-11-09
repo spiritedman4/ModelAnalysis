@@ -13,6 +13,7 @@ import multiprocessing
 from multiprocessing import Process
 from pathlib import Path
 import threading
+from whitenoise import WhiteNoise
 
 
 app=Flask(__name__,static_folder = './project/static')
