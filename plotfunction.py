@@ -8,7 +8,6 @@ from PIL import Image, ImageGrab
 from io import BytesIO
 import pandas as pd
 
-from dev import celery
 
 
 # Plot ROC curves
@@ -175,7 +174,7 @@ def plot_ROC(X, y, classifier, cv):
 #
 
 
-@celery.task
+
 def univariate_box_plot(df):
     fig_list = []
     from io import BytesIO
@@ -278,7 +277,7 @@ def univariate_box_plot(df):
     # output.close()
     # return fig_data_png
 
-@celery.task
+
 def univariate_dist_plot(df):
     sns.set()
     plt.gcf().clear()
