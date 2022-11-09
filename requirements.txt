@@ -24,3 +24,4 @@ pdfkit==1.0.0
 deco==0.6.3
 tqdm==4.64.0
 pydrop==0.0.6
+gunicorn==20.1.0
