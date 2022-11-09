@@ -21,7 +21,7 @@ import pdfkit
 from queue import Queue
 
 # blueprint
-models = Blueprint("models", __name__, template_folder='/templates/application', static_folder='static')
+models = Blueprint("models", __name__, template_folder='/templates/application', static_folder='staticfiles')
 logging.basicConfig(filename="applicationlognew.log", level=logging.INFO,
                     format='%(asctime)s - %(levelname)s - %(message)s')
 
