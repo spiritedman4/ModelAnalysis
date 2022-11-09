@@ -37,4 +37,4 @@ def login():
             return redirect(url_for('models.create_task'))
         else:
             flash('Login Unsuccessful. Please check username and password', 'danger')
-    return render_template('test.html', title='Login', form=form)
+    return render_template('application/test.html', title='Login', form=form)
