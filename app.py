@@ -21,8 +21,9 @@ app.config['SECRET_KEY']="youcantseeme"
 app.config['MAX_CONTENT_LENGTH'] = 50 * 1024 * 1024
 current_path=Path(__file__).parent.absolute()
 db_path=os.path.abspath(current_path/"project"/"databases")
-app.config["SQLALCHEMY_DATABASE_URI"]= 'sqlite:///'+os.path.join(db_path,'ModelAnalysis.db')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+# app.config["SQLALCHEMY_DATABASE_URI"]= 'sqlite:///'+os.path.join(db_path,'ModelAnalysis.db')
+app.config["SQLALCHEMY_DATABASE_URI"]="postgres://xgmddzrxkditty:86bacb5328b6ca3afdff388afdf75f963d363040ddb1213e1a66134395ffa239@ec2-3-217-251-77.compute-1.amazonaws.com:5432/dcibpuoa0ue5g3"
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db= SQLAlchemy(app)
 
 
