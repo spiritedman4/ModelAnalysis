@@ -66,7 +66,8 @@ class Metrics(db.Model):
     recall_score=db.Column(db.Float)
     f1_score=db.Column(db.Float)
     roc_auc_score=db.Column(db.Float)
-
+        
+db.create_all()
 """-----------------------------------------------------------------------------------"""
 
 if __name__ == "__main__":
