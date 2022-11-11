@@ -65,9 +65,12 @@ from functools import wraps
 #         self.result = result
 #         self.msg = msg
 
-
+import sys
 folder_path = Path(__file__).parent.absolute()
 folder = os.path.abspath(folder_path / "uploaded_csv_files")
+print(folder_path,folder)
+print(folder)
+sys.stdout.flush()
 uploaded_csv_files = os.listdir(folder)
 
 from threading import Thread
