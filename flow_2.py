@@ -68,9 +68,6 @@ from functools import wraps
 import sys
 folder_path = Path(__file__).parent.absolute()
 folder = os.path.abspath(folder_path / "uploaded_csv_files")
-print(folder_path,folder)
-print(folder)
-sys.stdout.flush()
 uploaded_csv_files = os.listdir(folder)
 
 from threading import Thread
@@ -373,6 +370,9 @@ def index(task_name):
                       f'for file {file.filename} complete')
 
     print("upload done")
+    print(folder_path)
+    print(folder)
+    sys.stdout.flush()
     return render_template('application/new_upload_flow.html', uploaded_csv_files=uploaded_csv_files,
                            task_name=task_name)
 
