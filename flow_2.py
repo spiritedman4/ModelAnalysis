@@ -314,10 +314,10 @@ def create_task():
                            tasks_list=tasks_list)
 
 
-@models.errorhandler(500)
-def internal_error(e):
-    print(e)
-    return render_template('errors/500.html',error=e)
+# @models.errorhandler(500)
+# def internal_error(e):
+#     print(e)
+#     return render_template('errors/500.html',error=e)
 
 
 @models.route('/<task_name>/upload', methods=["GET", "POST"])
