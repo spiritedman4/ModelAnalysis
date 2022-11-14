@@ -316,6 +316,7 @@ def create_task():
 
 @models.errorhandler(500)
 def internal_error(e):
+    print(e)
     return render_template('errors/500.html'), 500
 
 
