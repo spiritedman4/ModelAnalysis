@@ -317,7 +317,7 @@ def create_task():
 @models.errorhandler(500)
 def internal_error(e):
     print(e)
-    return render_template('errors/500.html'), 500
+    return render_template('errors/500.html',error=e), 500
 
 
 @models.route('/<task_name>/upload', methods=["GET", "POST"])
