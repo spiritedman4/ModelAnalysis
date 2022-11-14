@@ -14,6 +14,7 @@ from multiprocessing import Process
 from pathlib import Path
 import threading
 from whitenoise import WhiteNoise
+import logging
 
 
 app=Flask(__name__,static_folder = './project/static')
@@ -41,6 +42,8 @@ app.wsgi_app = WhiteNoise(app.wsgi_app,
         root=os.path.join(os.path.dirname(__file__), 'static'),
         prefix='static/')
 
+app.logger.addHandler(logging.StreamHandler(sys.stdout))
+app.logger.setLevel(logging.ERROR)
 """-----------------------------------------------------------------------------------"""
 
 class Tasks_new(db.Model):
