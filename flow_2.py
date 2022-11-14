@@ -1,7 +1,6 @@
 import logging
 # suppress all warnings
 import itertools
-import logging
 import os
 import threading
 import warnings
