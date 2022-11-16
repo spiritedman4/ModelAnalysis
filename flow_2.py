@@ -543,7 +543,7 @@ def eda(task_name):
         dep_var = request.form.getlist('depvar')
         if dep_var:
             target = dep_var[0]
-        import project.plotfunction as plotfunc
+        import plotfunction as plotfunc
         figs['Box Plot'] = str(plotfunc.univariate_box_plot(ds), 'utf-8')
         figs['Dist Plot'] = str(plotfunc.univariate_dist_plot(ds), 'utf-8')
         figs['Histogram']= str(plotfunc.univariate_Histogram_plot(ds), 'utf-8')
