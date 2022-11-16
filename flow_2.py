@@ -288,8 +288,8 @@ def get_tasks(all_tasks):
 @models.route('/task', methods=["GET", "POST"])
 def create_task():
     STATE = ('INACTIVE', 'ACTIVE')
-    from dev import db
-    from dev import Tasks_new, Metrics
+    from app import db
+    from app import Tasks_new, Metrics
     all_tasks = Tasks_new.query.all()
     get_metrics_data(Tasks_new, Metrics, db)
     get_tasks(all_tasks)
@@ -595,8 +595,8 @@ def model_building(task_name):
                   'DecisionTree': DecisionTreeClassifier(random_state=0),
                   'RandomForest': RandomForestClassifier(random_state=0)}
 
-        from dev import db
-        from dev import Metrics
+        from app import db
+        from app import Metrics
 
         def output_model_stats(mname, minst):
             global model_stats
