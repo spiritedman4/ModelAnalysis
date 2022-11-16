@@ -515,45 +515,45 @@ def eda(task_name):
     figs = {}
     if request.method == "GET":
           try:
-              try:
-                  fieldnames = df.columns
-                  print('1')
-                  ds = df
+              fieldnames = df.columns
+              print('1')
+              ds = df
 
-              except NameError:
-                  pass
-              try:
-                  fieldnames = df_null_cleared.columns
-                  print('2')
-                  ds = df_null_cleared
-              except NameError:
-                  pass
+          except NameError:
+              pass
+          try:
+              fieldnames = df_null_cleared.columns
+              print('2')
+              ds = df_null_cleared
+          except NameError:
+              pass
 
-              try:
-                  print('3')
-                  fieldnames = df_preprocessed.columns
-                  ds = df_preprocessed
-              except NameError:
-                  pass
-                
+          try:
+              print('3')
+              fieldnames = df_preprocessed.columns
+              ds = df_preprocessed
+          except NameError:
+              pass
+          try:
+              return render_template("application/new_eda_flow.html", fieldnames=fieldnames, task_name=task_name)
           except NameError:
               print('4')
               return render_template("application/new_eda_flow.html", task_name=task_name)
-          return render_template("application/new_eda_flow.html", fieldnames=fieldnames, task_name=task_name)
+          
         
     if request.method == "POST":
-        ind = request.form.get("indepvarmultiple")
-        dep = request.form.get("depvarmultiple")
-        indep_var = request.form.getlist('indepvar')
-        dep_var = request.form.getlist('depvar')
-        if dep_var:
-            target = dep_var[0]
-        import plotfunction as plotfunc
-        figs['Box Plot'] = str(plotfunc.univariate_box_plot(ds), 'utf-8')
-        figs['Dist Plot'] = str(plotfunc.univariate_dist_plot(ds), 'utf-8')
-        figs['Histogram']= str(plotfunc.univariate_Histogram_plot(ds), 'utf-8')
-        figs['Bivariate Analysis']= str(plotfunc.bivariate_analysis(ds, target), 'utf-8')
-        return render_template('application/graphs_flow_new.html', figs=figs, task_name=task_name)
+          ind = request.form.get("indepvarmultiple")
+          dep = request.form.get("depvarmultiple")
+          indep_var = request.form.getlist('indepvar')
+          dep_var = request.form.getlist('depvar')
+          if dep_var:
+              target = dep_var[0]
+          import plotfunction as plotfunc
+          figs['Box Plot'] = str(plotfunc.univariate_box_plot(ds), 'utf-8')
+          figs['Dist Plot'] = str(plotfunc.univariate_dist_plot(ds), 'utf-8')
+          figs['Histogram']= str(plotfunc.univariate_Histogram_plot(ds), 'utf-8')
+          figs['Bivariate Analysis']= str(plotfunc.bivariate_analysis(ds, target), 'utf-8')
+          return render_template('application/graphs_flow_new.html', figs=figs, task_name=task_name)
 
       
 
