@@ -539,9 +539,9 @@ def eda(task_name):
           except NameError:
               print('4')
               return render_template("application/new_eda_flow.html", task_name=task_name)
-
+          return render_template("application/new_eda_flow.html", fieldnames=fieldnames, task_name=task_name)
+        
     if request.method == "POST":
-    
         ind = request.form.get("indepvarmultiple")
         dep = request.form.get("depvarmultiple")
         indep_var = request.form.getlist('indepvar')
@@ -555,7 +555,7 @@ def eda(task_name):
         figs['Bivariate Analysis']= str(plotfunc.bivariate_analysis(ds, target), 'utf-8')
         return render_template('application/graphs_flow_new.html', figs=figs, task_name=task_name)
 
-    return render_template("application/new_eda_flow.html", fieldnames=fieldnames, task_name=task_name)  
+      
 
 
 @models.route("/<task_name>/graphs", methods=["GET", "POST"])
