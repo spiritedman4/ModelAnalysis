@@ -224,6 +224,7 @@ def create_dataframe(csv_file):
 
     except NameError or UnboundLocalError:
         pass
+    print('csv_file')
 
     df = pd.read_csv(f"{folder}\\{csv_file}", header='infer',error_bad_lines=False)
 
@@ -383,6 +384,7 @@ def data_preview(task_name):
     if request.method == "POST":
         return redirect(url_for('models.index', task_name=task_name))
     filename = file.filename
+    print(filename)
     '''creating the dataframe'''
     create_dataframe(filename)
     if df_preview_table is None:
@@ -399,6 +401,7 @@ def data_preview_1(task_name):
     global uploaded_file_selected, uploaded_csv_files, df_preview_table, filename
     task_name = task_name
     filename = request.form.get('uploaded_csv_files')
+    print(filename)
     create_dataframe(filename)
     if df_preview_table is None:
         df_preview_table = session['df_preview_table']
