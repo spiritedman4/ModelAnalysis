@@ -540,8 +540,8 @@ def eda(task_name):
               print('4')
               return render_template("application/new_eda_flow.html", task_name=task_name)
 
-          return render_template("application/new_eda_flow.html", fieldnames=fieldnames, task_name=task_name)
     if request.method == "POST":
+    
         ind = request.form.get("indepvarmultiple")
         dep = request.form.get("depvarmultiple")
         indep_var = request.form.getlist('indepvar')
@@ -552,12 +552,10 @@ def eda(task_name):
         figs['Box Plot'] = str(plotfunc.univariate_box_plot(ds), 'utf-8')
         figs['Dist Plot'] = str(plotfunc.univariate_dist_plot(ds), 'utf-8')
         figs['Histogram']= str(plotfunc.univariate_Histogram_plot(ds), 'utf-8')
-        # figs['Bivariate Analysis']= str(plotfunc.bivariate_analysis(ds, target), 'utf-8')
+        figs['Bivariate Analysis']= str(plotfunc.bivariate_analysis(ds, target), 'utf-8')
+        return render_template('application/graphs_flow_new.html', figs=figs, task_name=task_name)
 
-
-    return redirect(url_for('models.show_graphs', task_name=task_name))
-
-    # return render_pdf(url_for('drawgraphs.html', figs=figs))
+    return render_template("application/new_eda_flow.html", fieldnames=fieldnames, task_name=task_name)  
 
 
 @models.route("/<task_name>/graphs", methods=["GET", "POST"])
