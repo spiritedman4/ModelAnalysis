@@ -514,26 +514,27 @@ def eda(task_name):
     global figs, target, fieldnames, ds , check_var
     figs = {}
     if request.method == "GET":
-        try:
-            try:
-                fieldnames = df_preprocessed.columns
-                ds=df_preprocessed
-                check_var = "df_check-pre"
-                print(1)
-            except NameError:
-                fieldnames=df_null_cleared.columns
-                check_var="df_check-null"
-                ds=df_null_cleared
-                print(2)
+          try:
+              try:
+                  fieldnames = df.columns
+                  ds = df
+
+              except NameError:
+                  pass
+              try:
+                  fieldnames = df_null_cleared.columns
+                  ds = df_null_cleared
+              except NameError:
+                  pass
+
+              try:
+                  fieldnames = df_preprocessed.columns
+                  ds = df_preprocessed
+              except NameError:
+                  pass
+                
         except NameError:
-            try:
-                fieldnames = df.columns
-                ds = df
-                check_var='normal-df'
-                print(3)
-            except NameError:
-                print(4)
-                return render_template("application/new_eda_flow.html", task_name=task_name)
+              return render_template("application/new_eda_flow.html", task_name=task_name)
 
         return render_template("application/new_eda_flow.html", fieldnames=fieldnames, task_name=task_name)
     if request.method == "POST":
