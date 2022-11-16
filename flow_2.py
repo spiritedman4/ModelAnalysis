@@ -551,9 +551,11 @@ def eda(task_name):
         figs['Bivariate Analysis']= str(plotfunc.bivariate_analysis(ds, target), 'utf-8')
 
 
+    return redirect(url_for('models.show_graphs', task_name=task_name))
+
+@models.route("/<task_name>/graphs", methods=["GET", "POST"])
+def show_graphs(task_name):
     return render_template('application/graphs_flow_new.html', figs=figs, task_name=task_name)
-
-
 
 
 @models.route("/<task_name>/model_building", methods=["GET", "POST"])
