@@ -225,7 +225,7 @@ def create_dataframe(csv_file):
     except NameError or UnboundLocalError:
         pass
 
-    df = pd.read_csv(f"{folder}\\{csv_file}", header='infer',error_bad_lines=False)
+    df = pd.read_csv(f"{folder}/{csv_file}", header='infer',error_bad_lines=False)
 
     # session['df_dictionary']=df_dictionary
     logging.info(f"Dataframe for {csv_file} is created!")
@@ -632,7 +632,7 @@ def model_building(task_name):
             folder_path = Path(__file__).parent.absolute()
             folder = os.path.abspath(folder_path / 'generated_pickle_files')
 
-            path = (f"{folder}\\{task_name}")
+            path = (f"{folder}/{task_name}")
             if not os.path.exists(path):
                 os.makedirs(path)
 
@@ -645,7 +645,7 @@ def model_building(task_name):
                     pkl_files_dict[mname] = actualname
                 return actualname
 
-            with open(unique_file((f"{path}\\model_{mname}_{task_name}"), 'pkl'), 'wb') as f:
+            with open(unique_file((f"{path}/model_{mname}_{task_name}"), 'pkl'), 'wb') as f:
                 pickle.dump(model_new, f)
             model_scores.append(train_accuracy)
             model_scores.append(test_accuracy)
