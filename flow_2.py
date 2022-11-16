@@ -224,7 +224,6 @@ def create_dataframe(csv_file):
 
     except NameError or UnboundLocalError:
         pass
-    print('csv_file')
 
     df = pd.read_csv(f"{folder}\\{csv_file}", header='infer',error_bad_lines=False)
 
