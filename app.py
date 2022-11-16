@@ -42,8 +42,12 @@ app.wsgi_app = WhiteNoise(app.wsgi_app,
         root=os.path.join(os.path.dirname(__file__), 'static'),
         prefix='static/')
 
-app.logger.addHandler(logging.StreamHandler(sys.stdout))
-app.logger.setLevel(logging.ERROR)
+# app.logger.addHandler(logging.StreamHandler(sys.stdout))
+# app.logger.setLevel(logging.ERROR)
+
+gunicorn_logger = logging.getLogger('gunicorn.error')
+app.logger.handlers = gunicorn_logger.handlers
+app.logger.setLevel(gunicorn_logger.level)
 """-----------------------------------------------------------------------------------"""
 
 class Tasks_new(db.Model):
