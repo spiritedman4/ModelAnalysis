@@ -540,7 +540,7 @@ def eda(task_name):
               print('4')
               return render_template("application/new_eda_flow.html", task_name=task_name)
 
-        return render_template("application/new_eda_flow.html", fieldnames=fieldnames, task_name=task_name)
+          return render_template("application/new_eda_flow.html", fieldnames=fieldnames, task_name=task_name)
     if request.method == "POST":
         ind = request.form.get("indepvarmultiple")
         dep = request.form.get("depvarmultiple")
