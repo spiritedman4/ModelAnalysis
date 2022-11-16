@@ -517,23 +517,27 @@ def eda(task_name):
           try:
               try:
                   fieldnames = df.columns
+                  print('1')
                   ds = df
 
               except NameError:
                   pass
               try:
                   fieldnames = df_null_cleared.columns
+                  print('2')
                   ds = df_null_cleared
               except NameError:
                   pass
 
               try:
+                  print('3')
                   fieldnames = df_preprocessed.columns
                   ds = df_preprocessed
               except NameError:
                   pass
                 
-        except NameError:
+          except NameError:
+              print('4')
               return render_template("application/new_eda_flow.html", task_name=task_name)
 
         return render_template("application/new_eda_flow.html", fieldnames=fieldnames, task_name=task_name)
