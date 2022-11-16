@@ -543,19 +543,29 @@ def eda(task_name):
         dep_var = request.form.getlist('depvar')
         if dep_var:
             target = dep_var[0]
-        print(check_var)
-        import plotfunction as plotfunc
+        import project.plotfunction as plotfunc
         figs['Box Plot'] = str(plotfunc.univariate_box_plot(ds), 'utf-8')
         figs['Dist Plot'] = str(plotfunc.univariate_dist_plot(ds), 'utf-8')
         figs['Histogram']= str(plotfunc.univariate_Histogram_plot(ds), 'utf-8')
-        figs['Bivariate Analysis']= str(plotfunc.bivariate_analysis(ds, target), 'utf-8')
+        # figs['Bivariate Analysis']= str(plotfunc.bivariate_analysis(ds, target), 'utf-8')
 
 
     return redirect(url_for('models.show_graphs', task_name=task_name))
 
+    # return render_pdf(url_for('drawgraphs.html', figs=figs))
+
+
 @models.route("/<task_name>/graphs", methods=["GET", "POST"])
 def show_graphs(task_name):
+    global rendered
+    rendered = render_template('application/graphs_new.html', figs=figs, task_name=task_name)
     return render_template('application/graphs_flow_new.html', figs=figs, task_name=task_name)
+
+
+@models.route("/<task_name>/graphs-pdf", methods=["GET", "POST"])
+def create_pdf(task_name):
+    pdfkit.from_url(rendered, "C:\\Users\\srinivasan.b\\PycharmProjects\\ModelAnalysis\\pdfs", f"{task_name}.pdf")
+    return rendered
 
 
 @models.route("/<task_name>/model_building", methods=["GET", "POST"])
