@@ -722,16 +722,11 @@ def model_building(task_name):
 
 @models.route("/<task_name>/prediction", methods=["GET", "POST"])
 def prediction(task_name):
-    global indep_variables, pkl_file_path,prediction_result
+    global indep_variables,prediction_result
     prediction_variables_selected = []
     # indep_variables=[x.upper() for x in indep_variables]
     if request.method == "POST":
-        # from dev import Tasks_new,db
-        # task=db.session.query(Tasks_new).filter_by(task_name=task_name).one()
-        # if task:
-        #     task.task_status=0
-        #     task.time_closed=datetime.datetime.utcnow()
-        #     db.session.commit()
+        global pkl_file_path
         for i in indep_variables:
             prediction_variables = float(request.form.get(i))
             prediction_variables_selected.append(prediction_variables)
