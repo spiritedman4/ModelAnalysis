@@ -711,13 +711,13 @@ def model_building(task_name):
 
         return render_template('application/model_building_flow.html', task_name=task_name,
                                fieldnames=model_building_variables,df_all_models_preview_table=df_all_models_preview_table)
-
-    try:
-        model_building_variables = ds.columns
-        return render_template('application/model_building_flow.html', task_name=task_name,
-                               fieldnames=model_building_variables)
-    except:
-        return render_template('application/model_building_flow.html', task_name=task_name)
+    if request.method=="GET":
+        try:
+            model_building_variables = ds.columns
+            return render_template('application/model_building_flow.html', task_name=task_name,
+                                   fieldnames=model_building_variables)
+        except:
+            return render_template('application/model_building_flow.html', task_name=task_name)
 
 
 @models.route("/<task_name>/prediction", methods=["GET", "POST"])
@@ -747,9 +747,9 @@ def prediction(task_name):
         prediction_result= prediction_values[int(model_prediction)]
         return render_template('application/prediction_flow.html', task_name=task_name, indep_variables=indep_variables,prediction_result=prediction_result)
 
+    if request.method=="GET":
+        try:
+            return render_template('application/prediction_flow.html', task_name=task_name, indep_variables=indep_variables)
 
-    try:
-        return render_template('application/prediction_flow.html', task_name=task_name, indep_variables=indep_variables)
-
-    except NameError:
-        return render_template('application/prediction_flow.html', task_name=task_name)
+        except NameError:
+            return render_template('application/prediction_flow.html', task_name=task_name)
